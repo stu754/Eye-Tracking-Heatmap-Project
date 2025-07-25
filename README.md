@@ -1,5 +1,3 @@
-好的，下面是按照你的要求、内容和风格**正常输出**的完整README，emoji、图片插图建议和热力图绘图库说明都已包含：
-
 ---
 
 # 👁️‍🗨️ 眼动追踪热力图项目
@@ -21,7 +19,7 @@
 
 ## ✨ 项目简介与核心功能
 
-![项目banner，建议插入logo或banner图片](images/banner.png)
+![项目banner，建议插入logo或banner图片](public/images/logo.png)
 
 本项目由汕头大学·香港中文大学联合汕头国际眼科中心开发，旨在通过摄像头捕捉用户眼球注视行为，并利用热力图的方式进行可视化分析，辅助科学研究与眼科评估。
 
@@ -188,11 +186,7 @@ project/
 ├── package.json
 ├── package-lock.json
 └── server.js
-```
 
-![项目结构示意图，建议插入project\_structure.png](images/project_structure.png)
-
----
 
 ## 📬 联系方式
 
@@ -203,12 +197,6 @@ project/
 
 ---
 
-**插图建议（可参考以下内容在对应位置放置实际图片）：**
 
-* `images/banner.png` —— 项目logo/banner（首页顶部）
-* `images/sample_heatmap.png` —— 实际生成热力图示例（热力图说明处）
-* `images/project_structure.png` —— 你的文件夹结构截图（文件结构说明处）
 
----
 
-如需进一步调整内容、风格或需要英文版，请随时告诉我！
