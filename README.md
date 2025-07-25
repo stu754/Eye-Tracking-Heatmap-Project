@@ -1,18 +1,21 @@
-````markdown
+好的，下面是按照你的要求、内容和风格**正常输出**的完整README，emoji、图片插图建议和热力图绘图库说明都已包含：
+
+---
+
 # 👁️‍🗨️ 眼动追踪热力图项目
 
-**负责人**：余梓平  
-**邮箱**：19529230428@163.com
+**负责人**：余梓平
+**邮箱**：[19529230428@163.com](mailto:19529230428@163.com)
 
 ---
 
 ## 📑 目录
 
-1. [✨ 项目简介与核心功能](#项目简介与核心功能)  
-2. [🛠️ 环境配置与使用准备](#环境配置与使用准备)  
-3. [🧑‍💻 实际使用操作流程](#实际使用操作流程)  
-4. [📝 开发过程与工作日志](#开发过程与工作日志)  
-5. [🗂️ 项目文件结构说明](#项目文件结构说明)  
+1. ✨ 项目简介与核心功能
+2. 🛠️ 环境配置与使用准备
+3. 🧑‍💻 实际使用操作流程
+4. 📝 开发过程与工作日志
+5. 🗂️ 项目文件结构说明
 
 ---
 
@@ -24,25 +27,29 @@
 
 ### 🧩 主要组成与技术说明
 
-- **前端页面与交互**  
-  基于 [Node.js](https://nodejs.org/) 框架开发，实现多页面网站结构：  
-  - 首页  
-  - 测试页面  
-  - 测试结果页面  
-  - 关于页面  
+* **前端页面与交互**
+  基于 [Node.js](https://nodejs.org/) 框架开发，实现多页面网站结构：
 
-- **眼球动作捕捉**  
-  使用 [WebGazer.js](https://webgazer.cs.brown.edu/) 插件，通过浏览器调用摄像头，实时跟踪用户注视位置。  
-  **WebGazer 原理简介**：  
-  - 👁️ **面部识别与点云**：系统检测到人脸后，显示绿色框，并在脸上绘制多个“面部特征点”（点云），用于定位五官并估算视线方向。  
-  - 🎯 **九点校正**：测试前，用户需依次点击九个红点（每点至少5次），并保持注视，提升追踪准确度。  
+  * 首页
+  * 测试页面
+  * 测试结果页面
+  * 关于页面
 
-- **热力图生成**  
-  所有眼动数据（用户注视屏幕坐标）保存后，由 Python 脚本自动绘制热力图。  
-  - **依赖库**：  
-    - 标准库：`os`, `json`  
-    - 第三方库：`numpy`, `matplotlib`, `Pillow (PIL)`, `scipy.ndimage` (其中 `gaussian_filter` 用于平滑)  
-  - **绘制方式**：使用 `matplotlib.pyplot` 绘图，结合 `scipy.ndimage.gaussian_filter` 对坐标密度进行平滑处理，最终生成高热度区域可视化。  
+* **眼球动作捕捉**
+  使用 [WebGazer.js](https://webgazer.cs.brown.edu/) 插件，通过浏览器调用摄像头，实时跟踪用户注视位置。
+  **WebGazer 原理简介**：
+
+  * 👁️ **面部识别与点云**：系统检测到人脸后，显示绿色框，并在脸上绘制多个“面部特征点”（点云），用于定位五官并估算视线方向。
+  * 🎯 **九点校正**：测试前，用户需依次点击九个红点（每点至少5次），并保持注视，提升追踪准确度。
+
+* **热力图生成**
+  所有眼动数据（用户注视屏幕坐标）保存后，由 Python 脚本自动绘制热力图。
+
+  * **依赖库**：
+
+    * 标准库：`os`, `json`
+    * 第三方库：`numpy`, `matplotlib`, `Pillow (PIL)`, `scipy.ndimage`（其中 `gaussian_filter` 用于数据平滑和热度区渲染）
+  * **绘制方式**：利用 `matplotlib.pyplot` 绘图，`scipy.ndimage.gaussian_filter` 进行密度平滑，最终可视化注视高密度区域。
 
 ---
 
@@ -52,28 +59,44 @@
 
 ### 1️⃣ 安装 Node.js 相关依赖
 
+打开命令行窗口，进入项目文件夹，依次输入：
+
 ```bash
 npm install
 npm start
-````
+```
 
 启动后，浏览器访问提示的本地端口（如 [http://localhost:3000）。](http://localhost:3000）。)
 
 ### 2️⃣ 配置 Python 环境（热力图生成）
 
-```bash
-cd result
-python -m venv venv
-# Windows:
-.\venv\Scripts\activate
-# macOS/Linux:
-source venv/bin/activate
-pip install -r requirements.txt
-```
+1. 进入 `result` 文件夹
+
+2. 创建 Python 虚拟环境并激活（建议 Python 3.8 及以上）：
+
+   Windows:
+
+   ```bash
+   python -m venv venv
+   .\venv\Scripts\activate
+   ```
+
+   macOS/Linux:
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. 安装依赖包（根据 `requirements.txt`）：
+
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 ### 3️⃣ 测试图片与目录准备
 
-* 🖼️ **测试图片**：将测试图片以数字编号（如 `1.jpg`, `2.jpg`…）放入 `public/test_imgs/`。
+* 🖼️ **测试图片**：将所有测试图片以数字编号命名（如 `1.jpg`, `2.jpg`…），放入 `public/test_imgs/`。
 * 📂 **数据保存目录**：
 
   * 眼动坐标数据：`result/data/`
@@ -126,7 +149,7 @@ pip install -r requirements.txt
 
 ### 📊 精度与结果分析
 
-* 5 位同学共 50 次测试，头部移动准确率 \~50%；固定头部且充分校准时，准确度可达 \~70%。
+* 5 位同学共 50 次测试，头部移动准确率约50%；固定头部且充分校准时，准确度可达约70%。
 * 增加校正次数并固定头部能进一步提升精度。
 
 ### 🕓 项目工作日志
@@ -138,7 +161,7 @@ pip install -r requirements.txt
 | 2025.04.04 | 程序逻辑设计                   |
 | 2025.05.22 | 首次场景调试                   |
 | 2025.06.09 | 多设备摄像头精度测试               |
-| 2025.06.20 | Python 实现热力图绘制           |
+| 2025.06.20 | Python 热力图实现             |
 | 2025.07.13 | Bug 调试与脚本整合              |
 | 2025.07.15 | 多用户最终测试                  |
 | 2025.07.23 | 项目打包发布                   |
@@ -146,6 +169,8 @@ pip install -r requirements.txt
 ---
 
 ## 🗂️ 项目文件结构说明
+
+以下为主要目录结构示意（部分依赖如 node\_modules/venv 已省略）：
 
 ```
 project/
@@ -176,5 +201,14 @@ project/
 
 > 如需添加许可证（License）或英文版说明，请联系补充！
 
-```
-```
+---
+
+**插图建议（可参考以下内容在对应位置放置实际图片）：**
+
+* `images/banner.png` —— 项目logo/banner（首页顶部）
+* `images/sample_heatmap.png` —— 实际生成热力图示例（热力图说明处）
+* `images/project_structure.png` —— 你的文件夹结构截图（文件结构说明处）
+
+---
+
+如需进一步调整内容、风格或需要英文版，请随时告诉我！
