@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>图片注视追踪测试 | 汕头大学医学院</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+    <script src="https://webgazer.cs.brown.edu/webgazer.js"></script>
+</head>
+<body>
+<nav class="navbar">
+    <img src="/images/logo.png" alt="汕大校徽">
+    <a href="/">Home / 首页</a>
+    <a href="/test">Test / 测试页面</a>
+    <a href="/result">Test Result / 测试结果</a>
+    <a href="/more">More / 更多</a>
+</nav>
+
+<!-- 1. 规则介绍 -->
+<div id="overlay" class="overlay" style="display:flex;">
+    <div class="overlay-content" style="margin:auto;text-align:center;">
+        <h2>图片注视追踪测试</h2>
+        <p>
+            欢迎参加测试！<br>
+            点击下方按钮开始进行眼动追踪的校准。<br>
+            Please click the button below to begin calibration.<br>
+        </p>
+        <button id="startTestBtn" class="btn-primary" style="font-size:22px;">开始测试</button>
+    </div>
+</div>
+
+<!-- 2. 校准界面 -->
+<canvas id="plotting_canvas"></canvas>
+<div class="calibrationDiv" style="display:none;">
+    <div class="calib-dot" id="Pt1"></div>
+    <div class="calib-dot" id="Pt2"></div>
+    <div class="calib-dot" id="Pt3"></div>
+    <div class="calib-dot" id="Pt4"></div>
+    <div class="calib-dot" id="Pt5"></div>
+    <div class="calib-dot" id="Pt6"></div>
+    <div class="calib-dot" id="Pt7"></div>
+    <div class="calib-dot" id="Pt8"></div>
+    <div class="calib-dot" id="Pt9"></div>
+    <!-- 校正说明已彻底移除，无 .calib-tip -->
+</div>
+
+<!-- 3. 测试主界面 -->
+<div class="page-content" id="testMain" style="display:none;">
+    <div class="test-layout-center">
+        <div id="imgContainer" class="img-container-left">
+            <img id="testImg" src="" alt="测试图片">
+        </div>
+        <div class="btn-col-vertical">
+            <button id="prevBtn" class="btn-action" disabled>上一张</button>
+            <button id="nextBtn" class="btn-action" disabled>下一张</button>
+            <button id="pauseBtn" class="btn-action" disabled>暂停测试</button>
+            <button id="stopBtn" class="btn-action" disabled>终止测试</button>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    汕头大学医学院 | Medical College of Shantou University<br>
+    版权所有 ©2025
+</footer>
+<script src="/test.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>汕头大学医学院-主页</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <img src="/images/logo.png" alt="汕大校徽">
+        <a href="/">Home / 首页</a>
+        <a href="/test">Test / 测试页面</a>
+        <a href="/result">Test Result / 测试结果</a>
+        <a href="/more">More / 更多</a>
+    </nav>
+    <div class="page-content home-main">
+        <!-- 轮播图区域 -->
+        <div class="carousel">
+            <div class="carousel-img-list">
+                <img src="/images/display1.jpg" alt="展示1" class="carousel-img">
+                <img src="/images/display2.jpg" alt="展示2" class="carousel-img">
+                <img src="/images/display3.jpg" alt="展示3" class="carousel-img">
+            </div>
+            <div class="carousel-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+        <!-- 标题 -->
+        <h1 class="home-title">眼动热力图采集 / Eye-Tracking Heatmap Acquisition</h1>
+        <!-- 规则说明 -->
+        <div class="home-desc">
+            <p>
+                Please use a computer with a camera for the test, keep your face upright, and make sure the camera is unobstructed.<br>
+                During calibration, please look directly at each dot and click it. During the test, please focus on the image. All data will be used for research only and will be kept strictly confidential.<br>
+                <br>
+                请使用带摄像头的电脑进行测试，保持正脸，确保摄像头无遮挡。<br>
+                校准时请注视每个圆点并点击，测试时请专注于图片。所有数据仅用于科研，并严格保密。
+            </p>
+        </div>
+    </div>
+    <footer class="footer">
+        汕头大学医学院 | Medical College of Shantou University<br>
+        版权所有 ©2025
+    </footer>
+    <script>
+        const imgs = document.querySelectorAll('.carousel-img');
+        const dots = document.querySelectorAll('.carousel-dots .dot');
+        let idx = 0, timer = null;
+
+        function show(idxToShow) {
+            imgs.forEach((img, i) => {
+                img.classList.toggle('active', i === idxToShow);
+                dots[i].classList.toggle('active', i === idxToShow);
+            });
+            idx = idxToShow;
+        }
+
+        // 自动切换
+        function startTimer() {
+            if (timer) clearInterval(timer);
+            timer = setInterval(() => {
+                show((idx + 1) % imgs.length);
+            }, 3500);
+        }
+
+        // 点击圆点切换
+        dots.forEach((dot, i) => {
+            dot.onclick = () => {
+                show(i);
+                startTimer();
+            };
+        });
+
+        // 初始化
+        show(0);
+        startTimer();
+    </script>
+</body>
+</html>

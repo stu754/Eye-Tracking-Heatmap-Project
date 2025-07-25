@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>测试结果 | 汕头大学医学院</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<nav class="navbar">
+    <img src="/images/logo.png" alt="汕大校徽">
+    <a href="/">Home / 首页</a>
+    <a href="/test">Test / 测试页面</a>
+    <a href="/result">Test Result / 测试结果</a>
+    <a href="/more">More / 更多</a>
+</nav>
+<div class="page-content">
+    <div class="result-top-bar">
+        <button class="refresh-btn" id="refreshHeatmapBtn">⟳ 更新结果</button>
+    </div>
+    <div class="result-gallery" id="heatmapGallery"></div>
+</div>
+<footer class="footer">
+    汕头大学医学院 | Medical College of Shantou University<br>
+    版权所有 ©2025
+</footer>
+
+<!-- 放大浮窗（初始隐藏） -->
+<div id="heatmapModal" class="heatmap-modal" style="display:none;">
+    <div class="heatmap-modal-img-box">
+        <img id="modalImg" src="" alt="heatmap"/>
+        <div class="heatmap-modal-label" id="modalLabel"></div>
+    </div>
+    <button id="modalCloseBtn" class="heatmap-modal-close-btn">返回结果列表</button>
+</div>
+
+<script>
+    // 异步加载热力图列表
+    async function fetchHeatmaps() {
+        const resp = await fetch('/api/heatmaps');
+        if (!resp.ok) return [];
+        return await resp.json();
+    }
+
+    function renderHeatmaps(list) {
+        const gallery = document.getElementById('heatmapGallery');
+        gallery.innerHTML = '';
+        if (!list.length) {
+            gallery.innerHTML = `<div style="color:#888;font-size:18px;text-align:center;width:100%;">暂无热力图数据</div>`;
+            return;
+        }
+        for (const fname of list) {
+            const card = document.createElement('div');
+            card.className = 'heatmap-card';
+            card.tabIndex = 0;
+            card.innerHTML = `
+                <div class="heatmap-img-inner">
+                  <img src="/result/heatmap/${encodeURIComponent(fname)}" alt="${fname}">
+                </div>
+                <div class="heatmap-name">${fname}</div>
+            `;
+            // 点击或回车打开大图
+            card.onclick = () => showModal(fname);
+            card.onkeydown = e => {
+                if (e.key === 'Enter' || e.key === ' ') showModal(fname);
+            }
+            gallery.appendChild(card);
+        }
+    }
+
+    async function loadAndRender() {
+        const list = await fetchHeatmaps();
+        renderHeatmaps(list);
+    }
+
+    // 更新按钮逻辑
+    async function updateHeatmaps() {
+        const btn = document.getElementById('refreshHeatmapBtn');
+        btn.disabled = true;
+        btn.textContent = '正在生成...';
+        const res = await fetch('/api/finish-test', {method: 'POST'});
+        if (!res.ok) {
+            alert("脚本运行失败，请联系管理员！");
+            btn.disabled = false;
+            btn.textContent = '⟳ 更新结果';
+            return;
+        }
+        await new Promise(r => setTimeout(r, 1200));
+        await loadAndRender();
+        btn.textContent = '⟳ 更新结果';
+        btn.disabled = false;
+    }
+
+    document.getElementById('refreshHeatmapBtn').onclick = updateHeatmaps;
+    loadAndRender();
+
+    // --------- 放大浮窗逻辑 -----------
+    const modal = document.getElementById('heatmapModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalLabel = document.getElementById('modalLabel');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const topBtn = document.getElementById('refreshHeatmapBtn');
+    let lastScroll = 0;
+
+    function showModal(fname) {
+        lastScroll = window.scrollY;
+        modalImg.src = `/result/heatmap/${encodeURIComponent(fname)}`;
+        modalLabel.textContent = fname;
+        modal.style.display = 'flex';
+        topBtn.style.display = 'none';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+        modalImg.src = '';
+        topBtn.style.display = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, lastScroll);
+    }
+
+    modalCloseBtn.onclick = closeModal;
+    window.addEventListener('keydown', e => {
+        if (modal.style.display === 'flex' && (e.key === 'Escape' || e.key === 'Esc')) closeModal();
+    });
+</script>
+</body>
+</html>
