@@ -129,7 +129,7 @@ npm start
 * 测试结束后，系统自动调用 Python 脚本生成热力图。
 * 在“测试结果页面”，点击“更新结果”查看最新热力图（会覆盖旧图）。
 
-![示例热力图，建议插入sample\_heatmap.png](images/sample_heatmap.png)
+![示例热力图，建议插入sample\_heatmap.png](public/images/sample_heatmap.png)
 
 所有数据和图片保存在 `result` 文件夹内。
 
@@ -186,8 +186,7 @@ project/
 ├── package.json
 ├── package-lock.json
 └── server.js
-
-
+---
 ## 📬 联系方式
 
 本项目负责人：**余梓平**
@@ -195,7 +194,7 @@ project/
 
 > 如需添加许可证（License）或英文版说明，请联系补充！
 
----
+
 
 
 
