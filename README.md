@@ -65,7 +65,7 @@ npm install
 npm start
 ```
 
-启动后，浏览器访问提示的本地端口如 [http://localhost:3000）。](http://localhost:3000）
+启动后，浏览器访问提示的本地端口进行访问。
 
 ### 2️⃣ 配置 Python 环境（热力图生成）
 
@@ -111,7 +111,7 @@ npm start
 
 ### 1️⃣ 进入首页
 
-打开浏览器，访问本地网址如 [http://localhost:3000），点击“开始测试”。](http://localhost:3000）
+打开浏览器，访问本地网址如 http://localhost:3000 进行测试。
 
 ### 2️⃣ 启动摄像头并校正
 
